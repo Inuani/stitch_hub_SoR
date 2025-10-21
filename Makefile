@@ -37,13 +37,13 @@ Isync:
 	icx-asset --replica https://ic0.app --pem ~/.config/dfx/identity/raygen/identity.pem sync $(CANISTER_ID) ./public
 
 protect:
-	python3 scripts/setup_route.py $(CANISTER_ID) stitch/1 --cmac-count 200 --ic
+	python3 scripts/setup_route.py $(CANISTER_ID) stitch/1 --cmac-count 200
 
 protect_ic:
 	python3 scripts/setup_route.py $(CANISTER_ID) files/certificat_1 --cmac-count $(CMAC_COUNT) --ic --random-key
 
 reinstall:
-	dfx deploy $(CANISTER_NAME) --mode reinstall --ic
+	dfx deploy $(CANISTER_NAME) --mode reinstall
 
 ls:
 	icx-asset --replica https://ic0.app --pem ~/.config/dfx/identity/raygen/identity.pem ls $(CANISTER_ID)
@@ -69,7 +69,7 @@ delete_file:
 # Collection Management
 init_collection:
 	chmod +x scripts/init_collection.sh
-	./scripts/init_collection.sh $(CANISTER_NAME) ic
+	./scripts/init_collection.sh $(CANISTER_NAME) local
 
 add_item:
 	dfx canister call collection --ic addCollectionItem '("Bleu #6", "/thumb_6.webp", "/item_6.webp", "fermeture dorée", "Rare", vec {record{"Aura"; "+100"}})'

@@ -64,10 +64,10 @@ shared ({ caller = initializer }) persistent actor class Actor() = self {
     transient let assetMiddlewareConfig : AssetsMiddleware.Config = {
         store = assetStore;
     };
-    transient let jwtVerificationKey = switch (JwtHelper.defaultVerificationKey()) {
-        case (#ok(key)) key;
-        case (#err(err)) Debug.trap("Failed to decode default JWT verification key: " # err);
-    };
+    // transient let jwtVerificationKey = switch (JwtHelper.defaultVerificationKey()) {
+    //     case (#ok(key)) key;
+    //     case (#err(err)) Debug.trap("Failed to decode default JWT verification key: " # err);
+    // };
     transient let app = Liminal.App({
         middleware = [
             CORSMiddleware.createCORSMiddleware(),
@@ -76,8 +76,8 @@ shared ({ caller = initializer }) persistent actor class Actor() = self {
                     expiration = true;
                     notBefore = false;
                     issuer = #one("collection_d_evorev");
-                    signature = #key(jwtVerificationKey);
-                    // signature = #skip;
+                    // signature = #key(jwtVerificationKey);
+                    signature = #skip;
                     audience = #skip;
                 };
                 locations = [
